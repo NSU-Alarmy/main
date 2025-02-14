@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="isSelected"
+            type="Boolean" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/btnContainer"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/btn_date_background_selector"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp">
+
+        <!-- 요일 -->
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="Day"
+            android:textSize="14sp"
+            android:textColor="@color/black" />
+
+        <!-- 날짜 -->
+        <TextView
+            android:id="@+id/date_num"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="n"
+            android:textSize="14sp"
+            android:textColor="@drawable/btn_date_num_color"
+            android:background="@drawable/btn_date_selector"
+            android:padding="8dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+</layout>

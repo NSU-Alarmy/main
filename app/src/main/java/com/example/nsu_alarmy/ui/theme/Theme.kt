@@ -56,3 +56,12 @@ fun NSU_AlarmyTheme(
         content = content
     )
 }
+
+@Composable
+fun TodayMenuTheme(
+    darkTheme: Boolean= isSystemInDarkTheme(),
+    dynamicColor: Boolean=true,
+    content : @Composable () -> Unit
+){
+
+}
