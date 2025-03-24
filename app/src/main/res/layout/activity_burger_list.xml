@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MenuListActivity">
+
+    <!--  배경  -->
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="Burger Background List"
+        android:scaleType="centerCrop"
+        android:src="@drawable/burger_background_2"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Burger_Table"
+        android:scaleType="fitEnd"
+        android:src="@drawable/burger_table"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintStart_toStartOf="@+id/toolbar" />
+
+
+    <!--  상단바   -->
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/darkblue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:contentDescription="Go to previous"
+            android:src="@drawable/ic_previous_white_48" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="주문하기"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Main  -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/burger_board"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="Burger Menu Board"
+            android:scaleType="fitCenter"
+            android:src="@drawable/burger_board" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <!-- [버거] 버튼 -->
+            <Button
+                android:id="@+id/btn_list_burger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:background="@drawable/underline"
+                android:paddingHorizontal="5dp"
+                android:text="버거"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
+
+            <!-- [치킨] 버튼 -->
+            <Button
+                android:id="@+id/btn_list_chicken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="25dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/underline"
+                android:paddingHorizontal="5dp"
+                android:text="치킨"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
+
+            <!--[사이드] 버튼 -->
+            <Button
+                android:id="@+id/btn_list_side"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="25dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/underline"
+                android:paddingHorizontal="5dp"
+                android:text="사이드"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <!--  하단바  -->
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_2"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- 홈 버튼 -->
+        <LinearLayout
+            android:id="@+id/main_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="홈"
+                android:scaleType="centerInside"
+                android:src="@drawable/ico_home" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="홈"
+                android:textColor="#FF000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- 채팅 버튼 -->
+        <LinearLayout
+            android:id="@+id/main_chat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="커뮤니티"
+                android:scaleType="centerInside"
+                android:src="@drawable/ico_chat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="커뮤니티"
+                android:textColor="#FF000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- 리스트 버튼 -->
+        <LinearLayout
+            android:id="@+id/main_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="주문현황"
+                android:scaleType="centerInside"
+                android:src="@drawable/ico_list" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="주문현황"
+                android:textColor="#FF000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- 마이페이지 버튼 -->
+        <LinearLayout
+            android:id="@+id/main_mypage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="마이페이지"
+                android:scaleType="centerInside"
+                android:src="@drawable/ico_my" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="마이페이지"
+                android:textColor="#FF000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
