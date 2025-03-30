@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 그림자 -->
+    <item>
+        <shape android:shape="rectangle">
+            <padding android:bottom="4dp"
+                android:right="3dp"/>
+          <corners android:radius="20dp"/>
+            <solid android:color="#005F2F"/>
+        </shape>
+    </item>
+
+<!-- 버튼 -->
+    <item>
+        <shape
+            android:shape="rectangle">
+            <corners android:radius="15dp" />
+            <solid android:color="#FFDA00" />
+            <stroke android:width="4dp"
+                android:color="#FFFFFF"/>
+        </shape>
+    </item>
+</layer-list>

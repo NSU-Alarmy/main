@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:background="@drawable/btn_burger_menu"
+    android:elevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="12dp">
+
+        <ImageView
+            android:id="@+id/menu_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="menu_image"
+            android:src="@drawable/burger_image" />
+
+        <TextView
+            android:id="@+id/menu_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/menu_image"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:text="Burger Name"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+</FrameLayout>
