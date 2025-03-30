@@ -1,21 +1,21 @@
 package com.example.nsu_alarmy.db
 
-data class userOrderBurger (
-    val userId : String,
+data class userOrderBurger(
+    val userId: String,
 
-    val store : String,
+    val store: String,
     val menuList: String,
-    val menuId : String,
-    val set : Boolean?,
+    val menuId: String,
+    val set: Boolean?,
 
     // Opt1
-    val cheese :Boolean?,
-    val union : Boolean?,
-    val lettuce : Boolean?,
-    val pickle : Boolean?,
-    val tomato : Boolean?,
-
-    val opt2 : String?,
-
-    val num : Int
+    val cheese: Boolean?,
+    val union: Boolean?,
+    val lettuce: Boolean?,
+    val pickle: Boolean?,
+    val tomato: Boolean?,
+    // Opt2
+    val opt2: String?,
+    // 개수
+    val num: Int
 )

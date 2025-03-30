@@ -101,7 +101,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="5,000원"
+                    android:text="5,000"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="원"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />

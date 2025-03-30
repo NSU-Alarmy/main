@@ -64,6 +64,8 @@ dependencies {
     //  ConstrainLayout
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-beta01")
     implementation("androidx.compose.material3:material3:1.3.1")
+    //  Fragment
+    implementation("androidx.fragment:fragment-ktx:1.8.6")
 
     testImplementation(libs.junit)
 

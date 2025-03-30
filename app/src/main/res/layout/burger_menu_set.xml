@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="40dp"
     android:layout_gravity="center"
+    android:layout_margin="40dp"
     android:background="@android:color/transparent">
 
     <ImageView
@@ -13,9 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/pin3"
+        android:background="@android:color/transparent"
         android:contentDescription="pin_image"
-        android:background="@android:color/transparent"/>
+        android:src="@drawable/pin3" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -102,7 +102,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="5,000원"
+                    android:text="5,000"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="원"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -288,10 +297,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/burger_menu_option2"
+                    android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@id/potato_s"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_alignParentEnd="true">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="90dp"
@@ -371,9 +380,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
                 android:text="수량"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -390,11 +399,11 @@
                     android:layout_height="48dp"
                     android:layout_margin="5dp"
                     android:background="@null"
-                    android:scaleType="fitCenter"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_plus_18"
                     android:clickable="true"
-                    android:contentDescription="Add"/>
+                    android:contentDescription="Add"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_plus_18" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -410,11 +419,11 @@
                     android:layout_height="48dp"
                     android:layout_margin="5dp"
                     android:background="@null"
-                    android:scaleType="fitCenter"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_minus_18"
                     android:clickable="true"
-                    android:contentDescription="Substract"/>
+                    android:contentDescription="Substract"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_minus_18" />
 
             </LinearLayout>
 

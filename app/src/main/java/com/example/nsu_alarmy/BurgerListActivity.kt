@@ -49,4 +49,7 @@ class BurgerListActivity : AppCompatActivity() {
             startActivity(intentPrevious)
         }
     }
+    
+    // 선택한 버튼의 데이터를 가져와 리스트로 저장
+
 }

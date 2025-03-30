@@ -1,6 +1,5 @@
 package com.example.nsu_alarmy
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,24 +9,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nsu_alarmy.databinding.ActivityBurgerMenuListBinding
 import com.example.nsu_alarmy.db.Menu
-import com.google.android.gms.tasks.OnCompleteListener
 
-import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
-import com.google.firebase.app
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.firestore
 
-const val MENU_NAME = "menu name"
 
 class MenuListActivity : AppCompatActivity() {
     private val Tag = "MenuListActivity"
-
-    private val ListViewModel by viewModels<ListViewModel> {
-        ListViewModelFactory(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +23,10 @@ class MenuListActivity : AppCompatActivity() {
         val binding = ActivityBurgerMenuListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 데이터 형태, 기능 가져오기
+        val listViewModel by viewModels<ListViewModel> {
+            ListViewModelFactory(this)
+        }
 
         /* DB */
         Log.i(Tag, "데이터 가져오기 시도")
@@ -43,9 +35,8 @@ class MenuListActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
 
         // 데이터 가져오기
-        val menuRef = db.collection("store").document("hamburger")
-            .collection("burger").document("kEkvhSgLG0fdKpwCK3ud")
-
+//        val menuRef = db.collection("store").document("hamburger")
+//            .collection("burger").document("kEkvhSgLG0fdKpwCK3ud")
 
 //        menuRef.get()
 //            .addOnSuccessListener { document ->
@@ -67,6 +58,20 @@ class MenuListActivity : AppCompatActivity() {
 //            }
 //        }
 
+        val menuRef = db.collection("store").document("hamburger")
+            .collection("burger")
+            .get()
+            .addOnSuccessListener { result ->
+                for (i in result) {
+                    val value = i.data.toString()
+                    Log.i(Tag, "${i.id}=>${i.data}")
+                    //getMenu(i.id, i.data.ingredient)
+
+                }
+            }.addOnFailureListener {
+                Log.i(Tag, "데이터 가져오기 실패")
+            }
+
 
         /* RecyclerView */
         // 데이터 연결, 각 메뉴 버튼 생성
@@ -76,7 +81,7 @@ class MenuListActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = menuAdapter
 
-        ListViewModel.menuLiveData.observe(this, {
+        listViewModel.menuLiveData.observe(this, {
             it?.let {
                 menuAdapter.submitList(it as MutableList<Menu>)
             }
@@ -89,14 +94,18 @@ class MenuListActivity : AppCompatActivity() {
             val intentPrevious = Intent(this, BurgerListActivity::class.java)
             startActivity(intentPrevious)
         }
-
     }
 
     /* 메뉴 버튼 */
     // 메뉴 클릭시 단품/세트 선택 팝업창 표시
+    // 팝업창에 Menu Id값 전달
     private fun adapterOnClick(menu: Menu) {
-        Log.i(Tag, "메뉴 선택")
-        BurgerMenuChooseFragment().show(supportFragmentManager, "BURGER MENU CHOOSE")
+        var bundle = Bundle()
+        bundle.putString("Menu Id", menu.id)
+        Log.i(Tag, "메뉴 선택 : ${menu.id}")
+        val fragment = BurgerMenuChooseFragment()
+        fragment.arguments = bundle
+        fragment.show(supportFragmentManager, "BURGER MENU CHOOSE")
     }
 
     /* DB */
