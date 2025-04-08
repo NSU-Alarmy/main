@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">학복관 알리미</string>
+
+    <string name="Monday">MON</string>
+    <string name="Tuesday">TUE</string>
+    <string name="Wednesday">WED</string>
+    <string name="Thursday">THU</string>
+    <string name="Friday">FRI</string>
+
 </resources>

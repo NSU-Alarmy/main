@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/bottom_bar_home"
+      android:title="홈"
+      android:icon="@drawable/ico_home"/>
+    <item
+        android:id="@+id/bottom_bar_community"
+        android:title="커뮤니티"
+        android:icon="@drawable/ico_chat"/>
+    <item
+        android:id="@+id/bottom_bar_order"
+        android:title="주문상황"
+        android:icon="@drawable/ico_list"/>
+    <item
+        android:id="@+id/bottom_bar_mypage"
+        android:title="마이페이지"
+        android:icon="@drawable/ico_my"/>
+</menu>
