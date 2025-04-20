@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".PayActivity">
+
+    <!-- 상단바 -->
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="top|start"
+        android:background="@drawable/box_underline">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:contentDescription="이전으로 이동"
+            android:src="@drawable/ic_previous_48" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="주문하기"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!--  Main  -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="start|center_vertical"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="결제수단"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/paymentGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/box_border">
+
+
+        <RadioButton
+            android:id="@+id/radioToss"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/box_underline"
+            android:drawableStart="@drawable/toss_logo"
+            android:drawablePadding="8dp"
+            android:text="토스페이"
+            android:textSize="18sp"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/radioKakao"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/box_underline"
+            android:drawableStart="@drawable/kakao_logo"
+            android:drawablePadding="8dp"
+            android:text="카카오페이"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radioNaver"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/naver_logo"
+            android:drawablePadding="8dp"
+            android:text="네이버페이"
+            android:textSize="18sp" />
+
+    </RadioGroup>
+
+    <!-- 결제 주의 문구 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="10dp"
+        android:breakStrategy="high_quality"
+        android:gravity="start|top"
+        android:includeFontPadding="false"
+        android:lineHeight="12.1dp"
+        android:text="*(주)학복관알리미는 통신판매중개자이며, 통신판매의 당사자가 아님니다. 따라서 *(주)학복관알리미는 상품, 거래정보 및 거래에 대하여 책임을 지지 않습니다."
+        android:textColor="#FF8E8E8E"
+        android:textSize="11sp" />
+
+    <!-- 결제 버튼 -->
+    <LinearLayout
+        android:id="@+id/btn_pay_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/blue_rounded_background"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="10,000원 결제하기 "
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="(n개)"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

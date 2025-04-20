@@ -10,18 +10,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NSU_Alarmy">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity android:name=".PayActivity" />
+        <activity android:name=".LoadingActivity"/>
+        <activity android:name=".ReceiptActivity" />
+        <activity android:name=".OrderHistoryActivity"/>
+        <activity android:name=".OrderDetailActivity"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".BasketActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.NSU_Alarmy">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
