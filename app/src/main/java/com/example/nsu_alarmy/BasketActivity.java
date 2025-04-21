@@ -75,14 +75,15 @@ public class BasketActivity extends AppCompatActivity {
             intent.putExtra("total_price", currentTotalPrice);
             intent.putExtra("total_amount", currentTotalAmount);
             intent.putExtra("total_data", new ArrayList<>(basketViewModel.getBasketList().getValue()));
-            // 장바구니 비우기
             startActivity(intent);
         });
 
         // 뒤로 가기 버튼 설정
         ImageView adBackButton = findViewById(R.id.btn_back);
         adBackButton.setOnClickListener(v -> {
-
+            /***** 시험용 *****/
+            Intent intent = new Intent(BasketActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
     }

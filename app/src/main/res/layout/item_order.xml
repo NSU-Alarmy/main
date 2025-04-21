@@ -17,7 +17,7 @@
             android:id="@+id/dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2024/10/07"
+            android:text="2024/10/07  "
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -26,18 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="조리 완료 >"
+            android:text="[ 조리 완료 ]"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/waitingTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="20건 대기중..."
-            android:textColor="@color/black"
-            android:textSize="14sp" />
     </LinearLayout>
 
 
@@ -94,7 +86,7 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/paymentTextView"
+                    android:id="@+id/priceTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18,000원"

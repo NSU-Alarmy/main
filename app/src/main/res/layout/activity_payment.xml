@@ -69,7 +69,7 @@
             android:drawableStart="@drawable/toss_logo"
             android:drawablePadding="8dp"
             android:text="토스페이"
-            android:textSize="18sp"></RadioButton>
+            android:textSize="18sp"/>
 
         <RadioButton
             android:id="@+id/radioKakao"

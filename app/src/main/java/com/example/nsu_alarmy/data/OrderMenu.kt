@@ -1,5 +1,15 @@
 package com.example.nsu_alarmy.data
 
+data class OrderData(
+    val orderNum: Int? = 0,
+    val storeMap: Map<String, StoreOrder>? = null
+)
+
+data class StoreOrder(
+    val complete: Boolean = false,
+    val menuList: List<OrderMenu>? = null
+)
+
 data class OrderMenu(
     val menu: String = "",
     val menuPrice: Int = 0,

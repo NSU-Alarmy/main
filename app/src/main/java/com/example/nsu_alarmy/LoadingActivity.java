@@ -8,17 +8,14 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nsu_alarmy.data.BasketMenu;
-import com.example.nsu_alarmy.data.Option;
 import com.example.nsu_alarmy.data.OrderMenu;
-import com.google.firebase.firestore.CollectionReference;
+import com.example.nsu_alarmy.data.OrderNumManage;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,18 +28,40 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page); // 로딩 화면의 레이아웃
 
-        // 주문 날짜
-        LocalDateTime current = LocalDateTime.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        String today = current.format(dateFormat);
-        Log.i(tag, "주문 날짜: " + today);
-
         // 주문 데이터
         ArrayList<BasketMenu> orderList = (ArrayList<BasketMenu>) getIntent().getSerializableExtra("order_data");
 
-        /* 데이터 가공 */
-        // 메뉴를 가게를 기준으로 묶어 리스트로 저장
-        Map<String, List<OrderMenu>> groupByStoreMap = new HashMap<>();
+        /* 주문번호 가져오기 */
+        OrderNumManage.getOrderNum(new OrderNumManage.OnOrderNumListener() {
+            @Override
+            public void onSuccess(int newNum) {
+                Log.i(tag, "주문번호: " + newNum);
+                Map<String, Object> data = regroupOrderData(orderList, newNum); // 데이터 가공
+
+                updateOrderDataInFirestore(data); // Firestore에 업데이트
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.e(tag, "주문번호 가져오기 실패");
+
+            }
+        });
+
+        // 3초 후 ReceiptActivity로 이동
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(LoadingActivity.this, ReceiptActivity.class);
+            startActivity(intent);
+            finish();
+        }, 3000); // 3초(3000ms) 대기
+
+    }
+
+    /* 데이터 형태 가공 */
+    // 메뉴를 가게를 기준으로 묶어 리스트로 저장
+    private Map<String, Object> regroupOrderData(List<BasketMenu> orderList, int newNum) {
+        Map<String, Object> groupByStoreMap = new HashMap<>();
+        groupByStoreMap.put("orderNum", newNum);
 
         for (BasketMenu item : orderList) {
             String storeName = item.getStore();
@@ -55,15 +74,30 @@ public class LoadingActivity extends AppCompatActivity {
             );
 
             if (!groupByStoreMap.containsKey(storeName)) {
-                groupByStoreMap.put(storeName, new ArrayList<>());
-            }
+                Map<String, Object> storeData = new HashMap<>();
+                storeData.put("menuList", new ArrayList<>());
+                storeData.put("complete", false);
 
-            groupByStoreMap.get(storeName).add(orderMenu);
+                groupByStoreMap.put(storeName, storeData);
+            }
+            Map<String, Object> storeData = (Map<String, Object>) groupByStoreMap.get(storeName);
+            List<OrderMenu> menuList = (List<OrderMenu>) storeData.get("menuList");
+            menuList.add(orderMenu);
         }
         Log.i(tag, "결제 중: " + groupByStoreMap);
+        return groupByStoreMap;
+    }
 
-        /* Firestore에 데이터 넣기 */
-        // 데이터를 firestore order에 저장
+    /* Firestore에 데이터 넣기 */
+    // 데이터를 firestore order에 저장
+    // 장바구니 데이터는 삭제
+    private void updateOrderDataInFirestore(Map<String, Object> groupByStoreMap) {
+        // 주문 날짜
+        LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        String today = current.format(dateFormat);
+        Log.i(tag, "주문 날짜: " + today);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = "testId";
         String docId = today.replaceAll("[^0-9]", ""); //yyyyMMddHHmmss형태
@@ -87,15 +121,6 @@ public class LoadingActivity extends AppCompatActivity {
                 }).addOnFailureListener(e -> {
                     Log.e(tag, "주문 정보 저장 실패");
                 });
-
-
-        // 3초 후 ReceiptActivity로 이동
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(LoadingActivity.this, ReceiptActivity.class);
-            startActivity(intent);
-            finish();
-        }, 3000); // 3초(3000ms) 대기
-
-
     }
+
 }
