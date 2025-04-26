@@ -16,9 +16,9 @@
         <activity android:name=".BasketActivity" />
         <activity android:name=".PayActivity" />
         <activity android:name=".LoadingActivity" />
-        <activity android:name=".ReceiptActivity" />
+        <activity android:name=".OrderDetailNotCompleteActivity" />
         <activity android:name=".OrderHistoryActivity" />
-        <activity android:name=".OrderDetailActivity" />
+        <activity android:name=".OrderDetailCompleteActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -12,15 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nsu_alarmy.data.OrderViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class OrderHistoryActivity extends AppCompatActivity {
     private static final String tag = "OrderHistoryActivity";
 
     private OrderViewModel orderViewModel;
     private RecyclerView mainRecyclerView;
-    private OrderAdapter orderAdapter;
+    private OrderHistoryAdapter orderHistoryAdapter;
 
 
     @Override
@@ -42,11 +39,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
         DividerItemDecoration decoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mainRecyclerView.addItemDecoration(decoration);
 
-        orderAdapter = new OrderAdapter(userId, this, orderViewModel, this);
-        mainRecyclerView.setAdapter(orderAdapter);
+        orderHistoryAdapter = new OrderHistoryAdapter(userId, this, orderViewModel, this);
+        mainRecyclerView.setAdapter(orderHistoryAdapter);
 
 
-        orderViewModel.loadOrderData(userId); // 주문 내역 데이터 가져오기
+        orderViewModel.listenAllOrderData(userId); // 주문 내역 데이터 가져오기
         Log.d(tag, "가져온 데이터(액티비티):" + orderViewModel.getOrderDataMap().getValue());
 
 
@@ -54,6 +51,5 @@ public class OrderHistoryActivity extends AppCompatActivity {
         ImageView adBackButton = findViewById(R.id.btn_back);
         adBackButton.setOnClickListener(v -> finish());
     }
-
 }
 

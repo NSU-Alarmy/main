@@ -30,13 +30,14 @@ public class LoadingActivity extends AppCompatActivity {
 
         // 주문 데이터
         ArrayList<BasketMenu> orderList = (ArrayList<BasketMenu>) getIntent().getSerializableExtra("order_data");
+        String payment = getIntent().getStringExtra("paymentMethod");
 
         /* 주문번호 가져오기 */
         OrderNumManage.getOrderNum(new OrderNumManage.OnOrderNumListener() {
             @Override
             public void onSuccess(int newNum) {
                 Log.i(tag, "주문번호: " + newNum);
-                Map<String, Object> data = regroupOrderData(orderList, newNum); // 데이터 가공
+                Map<String, Object> data = regroupOrderData(orderList, newNum, payment); // 데이터 가공
 
                 updateOrderDataInFirestore(data); // Firestore에 업데이트
             }
@@ -44,13 +45,12 @@ public class LoadingActivity extends AppCompatActivity {
             @Override
             public void onFailure(Exception e) {
                 Log.e(tag, "주문번호 가져오기 실패");
-
             }
         });
 
         // 3초 후 ReceiptActivity로 이동
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(LoadingActivity.this, ReceiptActivity.class);
+            Intent intent = new Intent(LoadingActivity.this, OrderDetailNotCompleteActivity.class);
             startActivity(intent);
             finish();
         }, 3000); // 3초(3000ms) 대기
@@ -59,9 +59,10 @@ public class LoadingActivity extends AppCompatActivity {
 
     /* 데이터 형태 가공 */
     // 메뉴를 가게를 기준으로 묶어 리스트로 저장
-    private Map<String, Object> regroupOrderData(List<BasketMenu> orderList, int newNum) {
+    private Map<String, Object> regroupOrderData(List<BasketMenu> orderList, int newNum, String payment) {
         Map<String, Object> groupByStoreMap = new HashMap<>();
         groupByStoreMap.put("orderNum", newNum);
+        groupByStoreMap.put("payment",payment);
 
         for (BasketMenu item : orderList) {
             String storeName = item.getStore();

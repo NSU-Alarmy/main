@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
-            android:text="18,000원"
+            android:text="0원"
             android:textColor="@color/red"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -91,7 +91,7 @@
         android:background="@drawable/blue_rounded_background"
         android:gravity="center"
         android:padding="15dp"
-        android:text="결제하기 (n개)"
+        android:text="결제하기 (0개)"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
