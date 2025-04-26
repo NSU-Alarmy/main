@@ -21,32 +21,36 @@ class OrderViewModel : ViewModel() {
 
     // 전체 데이터 가져오기(+실시간 업데이트)
     fun listenAllOrderData(userId: String) {
-        UserOrderDataRepository.listenOrderChanges(userId) { updateData, isInitial ->
+        UserOrderDataRepository.listenOrderChanges(userId) { updateData, removeDataId, isInitial ->
             val currentMap = if (isInitial) {
                 mutableMapOf()
             } else {
                 _orderDataMap.value?.toMutableMap() ?: mutableMapOf()
             }
 
-            // 업데이트된 데이터만 덮어쓰기
+            // 업데이트된 데이터 덮어쓰기
             for ((orderId, orderData) in updateData) {
                 currentMap[orderId] = orderData
             }
+            // 데이터 삭제
+            for (orderId in removeDataId) {
+                currentMap.remove(orderId)
+            }
 
-            // totalData(금액, 개수, 조리상태) 계산
-            updateData.keys.forEach { orderId ->
-                val orderData = currentMap[orderId]
+            // 업데이트된 데이터의 totalData(금액, 개수, 조리상태) 계산
+            updateData.forEach { orderId, orderData ->
                 if (orderData != null) {
                     getTotalOfOrderData(orderId, orderData)
                 }
             }
+
             // 계산 후, LiveData 갱신
             _orderDataMap.postValue(currentMap)
         }
     }
 
     // 데이터 삭제
-    fun deleteOrderByOrderId(userId: String, orderId: String) {
+    fun deleteOrderByOrderId(orderId: String) {
         val currentItem = _orderDataMap.value?.toMutableMap() ?: return
         currentItem.remove(orderId)
         _orderDataMap.value = currentItem
@@ -68,9 +72,6 @@ class OrderViewModel : ViewModel() {
 
     // 총 주문 금액과 개수, 주문 상태 계산
     fun getTotalOfOrderData(orderId: String, orderDataMap: OrderData) {
-        Log.d("OrderData", "Calculating total for orderId: $orderId")
-        // val orderDataMap = _orderDataMap.value?.get(orderId) ?: return
-
         var totalPrice = 0
         var totalAmount = 0
         var finalComplete = true
@@ -82,7 +83,6 @@ class OrderViewModel : ViewModel() {
             if (storeOrder.complete == false) {
                 finalComplete = false
             }
-            Log.i("test", "${storeOrder.complete} // finalComplete:$finalComplete")
 
             storeOrder.menuList.orEmpty().forEach { menu ->
                 val optionTotalPrice = menu.optionList?.sumOf { it.optionPrice } ?: 0
@@ -100,13 +100,11 @@ class OrderViewModel : ViewModel() {
         totalPriceMap[orderId] = totalPrice
         totalAmountMap[orderId] = totalAmount
         finalCompleteMap[orderId] = finalComplete
-        Log.i("test", "확인: $finalComplete")
 
         // 값 업데이트 후 postValue 호출
         _totalPrice.value = totalPriceMap
         _totalAmount.value = totalAmountMap
         _finalComplete.value = finalCompleteMap
-        Log.d("OrderData", "Total amount for $orderId: $totalAmount")
     }
 
 
@@ -116,17 +114,17 @@ class OrderViewModel : ViewModel() {
 
     fun listenOrderDataByOrderId(userId: String, orderId: String) {
         UserOrderDataRepository.getOrderDataByOrderId(userId, orderId) { orderData ->
-            _orderDataByOrderId.postValue(orderData)
-
             getTotalOfOrderData(orderId, orderData)
+            _orderDataByOrderId.postValue(orderData)
         }
     }
 
     /* Firestore 연동 */
     // 삭제
-    fun deleteItemFromFirestore(userId: String, orderId: String) {
+    fun deleteItemFromFirestore(userId: String, orderId: String, onComplete: () -> Unit) {
         UserOrderDataRepository.deleteOrderMenu(userId, orderId) {
-            deleteOrderByOrderId(userId, orderId) // 로컬에서도 데이터 삭제
+            deleteOrderByOrderId(orderId) // 로컬에서도 데이터 삭제
+            onComplete()
         }
     }
 

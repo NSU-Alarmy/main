@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/basket_menu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="0dp"
     android:orientation="vertical"
     android:padding="10dp">
 
     <!-- 메뉴정보 -->
     <LinearLayout
         android:id="@+id/menu_info"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/menu_name_textview"
@@ -46,14 +42,11 @@
     <!-- 세부 사항 -->
     <LinearLayout
         android:id="@+id/menu_price"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/menu_info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_info">
+        android:paddingBottom="5dp">
 
         <TextView
             android:layout_width="0dp"
@@ -74,26 +67,31 @@
 
     <!-- 사이드 -->
     <TextView
-        android:id="@+id/add_side"
+        android:id="@+id/add_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="• 옵션"
         android:textColor="#FF000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_price" />
+        android:visibility="gone"/>
 
-    <!-- 사이드 리스트 추가 -->
     <LinearLayout
         android:id="@+id/option_container"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/menu_info"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_side" />
+        android:paddingBottom="10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- 개수 -->
+    <TextView
+        android:id="@+id/menu_amount_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="0개"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</LinearLayout>

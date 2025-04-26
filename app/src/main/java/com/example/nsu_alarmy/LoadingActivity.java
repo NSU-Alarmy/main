@@ -23,23 +23,48 @@ import java.util.Map;
 public class LoadingActivity extends AppCompatActivity {
     private String tag = "PayActivity";
 
+    private String docId; // orderId
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_page); // 로딩 화면의 레이아웃
 
+        // UserId
+        String userId = getIntent().getStringExtra("user_id");
         // 주문 데이터
         ArrayList<BasketMenu> orderList = (ArrayList<BasketMenu>) getIntent().getSerializableExtra("order_data");
         String payment = getIntent().getStringExtra("paymentMethod");
+
+        
 
         /* 주문번호 가져오기 */
         OrderNumManage.getOrderNum(new OrderNumManage.OnOrderNumListener() {
             @Override
             public void onSuccess(int newNum) {
                 Log.i(tag, "주문번호: " + newNum);
-                Map<String, Object> data = regroupOrderData(orderList, newNum, payment); // 데이터 가공
+                Log.i("test","주문자:"+userId);
 
-                updateOrderDataInFirestore(data); // Firestore에 업데이트
+                /* orderId _주문날짜 */
+                // 주문 번호 받아왔을 때, orderId 생성
+                LocalDateTime current = LocalDateTime.now();
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                String today = current.format(dateFormat);
+                Log.i(tag, "주문 날짜: " + today);
+                docId = today.replaceAll("[^0-9]", ""); //yyyyMMddHHmmss형태
+                Log.i("test", docId);
+                
+                Map<String, Object> data = regroupOrderData(orderList, newNum, payment); // 데이터 가공
+                updateOrderDataInFirestore(userId, docId, data); // Firestore에 업데이트
+
+                // 3초 후 OrderDetailCompleteActivity로 이동
+                new Handler().postDelayed(() -> {
+                    Intent intent = new Intent(LoadingActivity.this, OrderDetailCompleteActivity.class);
+                    intent.putExtra("user_id", userId);
+                    intent.putExtra("order_id", docId);
+                    startActivity(intent);
+                    finish();
+                }, 3000); // 3초(3000ms) 대기
             }
 
             @Override
@@ -48,13 +73,6 @@ public class LoadingActivity extends AppCompatActivity {
             }
         });
 
-        // 3초 후 ReceiptActivity로 이동
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(LoadingActivity.this, OrderDetailNotCompleteActivity.class);
-            startActivity(intent);
-            finish();
-        }, 3000); // 3초(3000ms) 대기
-
     }
 
     /* 데이터 형태 가공 */
@@ -62,7 +80,7 @@ public class LoadingActivity extends AppCompatActivity {
     private Map<String, Object> regroupOrderData(List<BasketMenu> orderList, int newNum, String payment) {
         Map<String, Object> groupByStoreMap = new HashMap<>();
         groupByStoreMap.put("orderNum", newNum);
-        groupByStoreMap.put("payment",payment);
+        groupByStoreMap.put("payment", payment);
 
         for (BasketMenu item : orderList) {
             String storeName = item.getStore();
@@ -92,18 +110,12 @@ public class LoadingActivity extends AppCompatActivity {
     /* Firestore에 데이터 넣기 */
     // 데이터를 firestore order에 저장
     // 장바구니 데이터는 삭제
-    private void updateOrderDataInFirestore(Map<String, Object> groupByStoreMap) {
-        // 주문 날짜
-        LocalDateTime current = LocalDateTime.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        String today = current.format(dateFormat);
-        Log.i(tag, "주문 날짜: " + today);
-
+    private void updateOrderDataInFirestore(String userId, String docId, Map<String, Object> groupByStoreMap) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = "testId";
-        String docId = today.replaceAll("[^0-9]", ""); //yyyyMMddHHmmss형태
+
         DocumentReference docRef = db.collection("user_data").document(userId)
                 .collection("order").document(docId);
+
         docRef.set(groupByStoreMap)
                 .addOnSuccessListener(unused -> {
                     Log.i(tag, "주문 정보 저장 성공");
@@ -123,5 +135,4 @@ public class LoadingActivity extends AppCompatActivity {
                     Log.e(tag, "주문 정보 저장 실패");
                 });
     }
-
 }

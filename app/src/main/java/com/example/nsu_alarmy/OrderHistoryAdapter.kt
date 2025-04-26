@@ -19,7 +19,7 @@ class OrderHistoryAdapter(
     private val userId: String,
     private val context: Context,
     private val orderViewModel: OrderViewModel,
-    private val lifecycleOwner: LifecycleOwner
+    lifecycleOwner: LifecycleOwner
 
 ) : RecyclerView.Adapter<OrderHistoryAdapter.OrderViewHolder>() {
     private val tag = "OrderAdapter"
@@ -38,6 +38,11 @@ class OrderHistoryAdapter(
 
                 notifyDataSetChanged() // 데이터 변경 시 RecyclerView 갱신
             }
+        }
+        // finalComplete 값이 바뀔 때 RecyclerView 새로고침
+        orderViewModel.finalComplete.observe(lifecycleOwner) {
+            Log.i(tag, "조리 완료 상태 변경 감지: $it")
+            notifyDataSetChanged()
         }
     }
 

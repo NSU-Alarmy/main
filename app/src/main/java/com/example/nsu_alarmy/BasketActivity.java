@@ -71,11 +71,14 @@ public class BasketActivity extends AppCompatActivity {
         orderButton = findViewById(R.id.orderButton);
         orderButton.setOnClickListener(v -> {
             Intent intent = new Intent(BasketActivity.this, PayActivity.class);
+            // userId 데이터 전달
+            intent.putExtra("user_id", userId);
             // payActivity로 데이터 전달(총 주문 금액, 개수, 메뉴)
             intent.putExtra("total_price", currentTotalPrice);
             intent.putExtra("total_amount", currentTotalAmount);
             intent.putExtra("total_data", new ArrayList<>(basketViewModel.getBasketList().getValue()));
             startActivity(intent);
+            finish();
         });
 
         // 뒤로 가기 버튼 설정
@@ -84,6 +87,7 @@ public class BasketActivity extends AppCompatActivity {
             /***** 시험용 *****/
             Intent intent = new Intent(BasketActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         });
 
     }

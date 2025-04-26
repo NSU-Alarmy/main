@@ -24,6 +24,9 @@ public class PayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        
+        // 사용자 아이디
+        String userId = getIntent().getStringExtra("user_id");
 
         // 주문 내역
         ArrayList<BasketMenu> basketList = (ArrayList<BasketMenu>) getIntent().getSerializableExtra("total_data");
@@ -63,6 +66,7 @@ public class PayActivity extends AppCompatActivity {
 
                 // 로딩 화면으로 이동
                 Intent intent = new Intent(PayActivity.this, LoadingActivity.class);
+                intent.putExtra("user_id", userId); // 사용자 아이디 전달
                 intent.putExtra("paymentMethod", selectedPayment); // 선택한 결제 수단 전달
                 intent.putExtra("order_data", basketList);
                 startActivity(intent);

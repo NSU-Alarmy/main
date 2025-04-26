@@ -70,7 +70,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder
             storeName = view.findViewById(R.id.store_name_textview);
             waitingAmount = view.findViewById(R.id.waiting_amount);
 
-            storeBasketRecyclerView = view.findViewById(R.id.rv_menu);
+            storeBasketRecyclerView = view.findViewById(R.id.rv_store_order);
         }
     }
 

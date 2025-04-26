@@ -90,7 +90,7 @@
 
     <!-- 사이드 -->
     <TextView
-        android:id="@+id/add_side"
+        android:id="@+id/add_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -109,7 +109,7 @@
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="@+id/menu_info"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_side"/>
+        app:layout_constraintTop_toBottomOf="@+id/add_option"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
