@@ -1,47 +1,36 @@
 package com.example.nsu_alarmy
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.nsu_alarmy.ui.theme.NSU_AlarmyTheme
+import android.util.Log
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet.Layout
+import com.example.nsu_alarmy.data.Option
+import com.example.nsu_alarmy.data.OrderData
+import com.example.nsu_alarmy.data.OrderMenu
+import com.example.nsu_alarmy.data.StoreOrder
+import com.example.nsu_alarmy.data.UserOrderDataRepository.tag
+import com.google.firebase.firestore.FirebaseFirestore
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            NSU_AlarmyTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        setContentView(R.layout.activity_main)
+
+        val basketButton: Button = findViewById(R.id.basketBtn)
+        val orderListButton: LinearLayout = findViewById(R.id.main_list)
+
+        basketButton.setOnClickListener {
+            val intent = Intent(this, BasketActivity::class.java)
+            startActivity(intent)
         }
-    }
-}
+        orderListButton.setOnClickListener {
+            val intent = Intent(this, OrderHistoryActivity::class.java)
+            startActivity(intent)
+        }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NSU_AlarmyTheme {
-        Greeting("Android")
     }
 }

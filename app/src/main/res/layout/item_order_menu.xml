@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/basket_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <!-- 메뉴정보 -->
+    <LinearLayout
+        android:id="@+id/menu_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/menu_name_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="불고기 버거"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/total_price_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="6,500원"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- 세부 사항 -->
+    <LinearLayout
+        android:id="@+id/menu_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="• 가격"
+            android:textColor="#FF000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/menu_price_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5,000원"
+            android:textColor="#FF000000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 사이드 -->
+    <TextView
+        android:id="@+id/add_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="• 옵션"
+        android:textColor="#FF000000"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/option_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:paddingBottom="10dp" />
+
+    <!-- 개수 -->
+    <TextView
+        android:id="@+id/menu_amount_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="0개"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</LinearLayout>
